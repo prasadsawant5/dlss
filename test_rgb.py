@@ -5,7 +5,7 @@ from config import *
 import cv2
 import numpy as np
 
-SAVED_MODEL = './saved_models/2'
+SAVED_MODEL = './saved_models_rgb/1'
 VIDEO = 'test.mp4'
 
 if __name__ == '__main__':
@@ -18,7 +18,7 @@ if __name__ == '__main__':
         ret, frame = cap.read()
 
         if ret:
-            image = cv2.resize(frame, (480, 360), interpolation=cv2.INTER_CUBIC)
+            image = cv2.resize(frame, (640, 360), interpolation=cv2.INTER_CUBIC)
             img = tf.image.resize(frame, LOW_RES_SIZE, method="area")
             img = hi_res_normalization(img)
             img = tf.expand_dims(img, axis=0)

@@ -1,7 +1,10 @@
 data/*
 saved_models/*
 tensorrt_model/*
+__pycache__/*
 logs/*
 *.zip
 *.mp4
 BSR/*
+saved_models_rgb/*
+.idea/*

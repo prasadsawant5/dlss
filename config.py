@@ -1,10 +1,10 @@
 import os
 
-HI_RES_SIZE = (960, 1280)
-LOW_RES_SIZE = (480, 640)
+HI_RES_SIZE = (720, 1280)
+LOW_RES_SIZE = (360, 640)
 
-OPENCV_LOW_RES = (640, 480)
-OPENCV_HI_RES = (1280, 960)
+OPENCV_LOW_RES = (640, 360)
+OPENCV_HI_RES = (1280, 720)
 
 # specify root path to the BSDS500 dataset
 ROOT_PATH = os.path.join("BSR", "BSDS500", "data", "images")
