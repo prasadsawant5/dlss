@@ -8,3 +8,4 @@ logs/*
 BSR/*
 saved_models_rgb/*
 .idea/*
+*.pyc

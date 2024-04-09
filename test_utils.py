@@ -46,3 +46,20 @@ def convert_to_yCbCr(image: Image):
     y = y.astype("float32") / 255.0
 
     return (y, cb, cr)
+
+# def convert_to_yuv(image: Image):
+#     ycbcr = image.convert("YCbCr")
+#     (y, cb, cr) = ycbcr.split()
+
+#     denominator = 240. - 16.
+
+#     y = np.array(y)
+#     y = y.astype("float32") / 255.0
+
+#     cb = np.array(cb)
+#     cb = (cb.astype("float32") - 16.) / denominator
+
+#     cr = np.array(cr)
+#     cr = (cr.astype("float32") - 16.) / denominator
+
+#     return np.array([y, cb, cr])

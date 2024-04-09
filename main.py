@@ -29,6 +29,9 @@ if __name__ == '__main__':
     if not os.path.exists(logs_dir):
         os.mkdir(logs_dir)
 
+    if not os.path.exists('saved_models'):
+        os.mkdir('saved_models')
+
     idx = os.listdir(logs_dir)
     if len(idx) == 0:
        idx = '1'
@@ -42,18 +45,18 @@ if __name__ == '__main__':
     trainPaths = list(paths.list_images(DIV_HI_RES))
     trainDS = tf.data.Dataset.from_tensor_slices(trainPaths)
 
-    trainDS = trainDS.map(process_rgb_input, num_parallel_calls=AUTO).batch(BATCH_SIZE).prefetch(AUTO)
+    trainDS = trainDS.map(preprocess_rgb_image, num_parallel_calls=AUTO).batch(BATCH_SIZE).prefetch(AUTO)
 
     optimizer = Adam(LR)
 
-    model = MyModel().build_model(channels=3, is_rgb=True)
+    model = MyModel().build_yuv_model()
     model.summary()
 
     tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=tb_logs_dir, profile_batch=5)
     model.compile(optimizer=optimizer, loss='mse', metrics=psnr)
     model.fit(trainDS, validation_data=None, epochs=EPOCHS, callbacks=[tensorboard_callback])
 
-    save_path = os.path.join('saved_models_rgb', idx)
+    save_path = os.path.join('saved_models', 'full_rgb')
     if not os.path.exists(save_path):
         os.mkdir(save_path)
 
@@ -65,5 +68,5 @@ if __name__ == '__main__':
     tflite_model = converter.convert()
 
     # Save the model.
-    with open(os.path.join(save_path, 'model_rgb.tflite'), 'wb') as f:
+    with open(os.path.join(save_path, 'model.tflite'), 'wb') as f:
         f.write(tflite_model)
